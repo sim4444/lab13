@@ -12,9 +12,7 @@ Inside the project, I explored the scripts/ directory, which contained helper sh
 I also examined the Terraform configuration inside the terraform/ directory to get familiar with the provider and infrastructure setup.
 
 ## S3 Bucket Creation
-I initially attempted to use the provided ./create-bucket script with the bucket name A01301238-bucket, but I encountered an error because AWS S3 bucket names must be lowercase. After identifying this issue, I corrected the bucket name to use all lowercase characters.
-
-Eventually, I decided to create the bucket using the AWS Console GUI to ensure proper configuration. I named the bucket:
+I initially attempted to use the provided ./create-bucket script with the bucket name A01301238-bucket, but I encountered an error because AWS S3 bucket names must be lowercase. After identifying this issue, I corrected the bucket name to use all lowercase characters 'labweek14-a01301238-bucket'.I named the bucket:
 
 ```bash
 labweek14-a01301238-bucket
@@ -65,3 +63,12 @@ The lock file is present only while Terraform is actively performing an operatio
 
 ### Ques3. Is the lock file always in the bucket after it is created?
 No, the lock file is temporary and is only present while a Terraform operation is in progress. Once the operation completes, Terraform automatically removes the lock file from the S3 bucket. It is not meant to persist like the state file. This behavior ensures that future Terraform commands can proceed without conflict, assuming no other processes are actively working with the backend. If the lock file remains in the bucket after the operation, it could indicate that a previous process was interrupted, and manual intervention may be required to remove it.
+
+
+### Cleanup
+Once I tested everything, I cleaned up the resources by running:
+
+```bash
+terraform destroy
+```
+
