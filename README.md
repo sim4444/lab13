@@ -46,10 +46,14 @@ During this process, Terraform connected to the remote backend and successfully 
 ## Screenshots
 
 **State File Only:**
+
 ![State File](state_file.png)
 
+
 **State File + Lock File (during plan/apply):**
+
 ![Lock File](lock_file.png)
+
 
 ## Questions
 
