@@ -51,5 +51,13 @@ During this process, Terraform connected to the remote backend and successfully 
 **State File + Lock File (during plan/apply):**
 ![Lock File](lock_file.png)
 
+## Questions
 
+### Ques1. When is the state file created?
+The state file is created immediately after I run the terraform apply command and the infrastructure is successfully provisioned. It serves as a record of the real-world resources that Terraform manages. This file contains the current state of the resources, including their attributes and metadata. By storing the state file in a remote S3 bucket, Terraform can manage shared infrastructure more effectively across teams and machines. The state file is crucial for determining what changes need to be applied during future runs of terraform plan or terraform apply.
 
+### Ques2. When is the lock file present?
+The lock file is present only while Terraform is actively performing an operation that reads or writes the state file. For example, it appears during commands such as terraform plan, terraform apply, and terraform destroy. Its purpose is to prevent simultaneous access to the state file, which could cause corruption or inconsistent results. If another user or system tries to run Terraform operations on the same backend while a lock is active, they will be blocked until the lock is released. This ensures that Terraform operations are atomic and safe.
+
+### Ques3. Is the lock file always in the bucket after it is created?
+No, the lock file is temporary and is only present while a Terraform operation is in progress. Once the operation completes, Terraform automatically removes the lock file from the S3 bucket. It is not meant to persist like the state file. This behavior ensures that future Terraform commands can proceed without conflict, assuming no other processes are actively working with the backend. If the lock file remains in the bucket after the operation, it could indicate that a previous process was interrupted, and manual intervention may be required to remove it.
