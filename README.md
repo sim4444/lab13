@@ -45,10 +45,16 @@ During this process, Terraform connected to the remote backend and successfully 
 
 **State File Only:**
 
-![State File](state_file.png)
+![State File](state_file_GUI.png) 
+
+
+![State File](state_file.png) 
 
 
 **State File + Lock File (during plan/apply):**
+
+![Lock File](lock_file_GUI.png)
+
 
 ![Lock File](lock_file.png)
 
